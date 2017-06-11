@@ -6,11 +6,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // http://stackoverflow.com/a/34015469/988941
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import SearchBox from './components/SearchBox'
-import makeExpanding from './components/expanding-animation';
+import makeAnimatedValidationSearchBox from './components/search-box-controller';
 
 injectTapEventPlugin();
 
-const ExpandingSearchBox = makeExpanding(SearchBox);
+const AnimatedSearchBox = makeAnimatedValidationSearchBox(SearchBox);
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div style={style}>
-          <ExpandingSearchBox />
+          <AnimatedSearchBox />
         </div>
       </MuiThemeProvider>
     );

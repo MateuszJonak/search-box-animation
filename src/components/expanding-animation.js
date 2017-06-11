@@ -1,28 +1,16 @@
-import React, { Component } from 'react';
+import { compose, withState, withHandlers, defaultProps } from 'recompose';
 
 const animationStyle = {
-    transition: 'width 0.75s cubic-bezier(0.000, 0.795, 0.000, 1.000)'
+  transition: 'width 0.75s cubic-bezier(0.000, 0.795, 0.000, 1.000)'
 };
-const makeExpanding = (Target) => {
-  return class extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { isOpen: false };
-    }
+const makeExpanding = compose(
+  withState('isOpen', 'setIsOpen', false),
+  withHandlers({
+    onClick: ({ setIsOpen, isOpen }) => () => setIsOpen(!isOpen)
+  }),
+  defaultProps({
+    additionalStyles: { text: animationStyle, frame: animationStyle }
+  })
+)
 
-    onClick = () => {
-      this.setState({ isOpen: !this.state.isOpen });
-    };
-
-    render() {
-      return (
-        <Target {...this.props}
-          isOpen={this.state.isOpen}
-          onClick={this.onClick}
-          additionalStyles={{text: animationStyle, frame: animationStyle}}
-        />
-      );
-    }
-  }
-};
 export default makeExpanding;
